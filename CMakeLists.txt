@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.22)
 
 project(message_logger)
 
 find_package(ament_cmake_auto REQUIRED)
-ament_auto_find_build_dependencies()
+find_package(rclcpp REQUIRED)
 
 include(CMakeDependentOption)
 cmake_dependent_option(MELO_USE_COUT "Use std::cout" OFF
@@ -27,29 +27,37 @@ if(DEFINED MELO_FUNCTION_PRINTS)
   add_definitions(-DMELO_FUNCTION_PRINTS)
 endif()
 
-# Build
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
-add_compile_options(-fPIC)
-
-ament_auto_add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
   src/log/globals.cpp
   src/time/Time.cpp
   src/time/TimeStd.cpp
 )
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+    
+ament_target_dependencies(${PROJECT_NAME}
+  rclcpp
+)
+
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -fPIC)
+
 
 # Install
+install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
+install(DIRECTORY include/ DESTINATION include/
+)
 install(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/include/message_logger/log/log_messages_backend_config.hpp
   DESTINATION include/message_logger/log
 )
 
-ament_auto_package()
+ament_export_include_directories(include)
+ament_export_libraries(
+  ${PROJECT_NAME}
+)
 
 # Test
 if(BUILD_TESTING)
@@ -57,3 +65,7 @@ if(BUILD_TESTING)
   ament_add_gtest(empty_test test/EmptyTests.cpp)
   target_link_libraries(empty_test)
 endif()
+
+ament_export_dependencies(rclcpp)
+
+ament_package()
