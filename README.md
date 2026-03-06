@@ -7,6 +7,7 @@
 ## Overview
 
 This is a fork of the original repository by Duatic!
+__This is a deprecated package__ and should not be used anymore. It is provided a legacy dependency.
 
 This package provides an interface to log text messages. If the library is used on an installed [ROS system](http://www.ros.org), the backend uses the [ROS logging mechanism](http://wiki.ros.org/roscpp/Overview/Logging). Otherwise the messages are forwarded to [std::cout](http://www.cplusplus.com/reference/iostream/cout/).
 
