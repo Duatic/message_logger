@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.22)
 project(message_logger)
 
 find_package(ament_cmake_auto REQUIRED)
+find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_ros REQUIRED)
 find_package(rclcpp REQUIRED)
 
 include(CMakeDependentOption)
