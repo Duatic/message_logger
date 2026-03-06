@@ -1,6 +1,12 @@
 # An Interface for Message Logging
 
+[![Jazzy Build Main](https://github.com/Duatic/message_logger/actions/workflows/build-jazzy.yml/badge.svg?branch=main)](https://github.com/Duatic/message_logger/actions/workflows/build-jazzy.yml)  [![Kilted Build Main](https://github.com/Duatic/message_logger/actions/workflows/build-kilted.yml/badge.svg?branch=main)](https://github.com/Duatic/message_logger/actions/workflows/build-kilted.yml)  [![Rolling Build Main](https://github.com/Duatic/message_logger/actions/workflows/build-rolling.yml/badge.svg?branch=main)](https://github.com/Duatic/message_logger/actions/workflows/build-rolling.yml)
+
+
+
 ## Overview
+
+This is a fork of the original repository by Duatic!
 
 This package provides an interface to log text messages. If the library is used on an installed [ROS system](http://www.ros.org), the backend uses the [ROS logging mechanism](http://wiki.ros.org/roscpp/Overview/Logging). Otherwise the messages are forwarded to [std::cout](http://www.cplusplus.com/reference/iostream/cout/).
 
