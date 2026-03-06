@@ -40,9 +40,15 @@ target_include_directories(${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
     
-ament_target_dependencies(${PROJECT_NAME}
-  rclcpp
-)
+if(COMMAND ament_target_dependencies)
+  # Use the old ROS 2 macro if available
+  ament_target_dependencies(${PROJECT_NAME}
+    rclcpp
+  )
+else()
+  # Fallback for Rolling or newer distros
+  target_link_libraries(${PROJECT_NAME} PUBLIC rclcpp::rclcpp)
+endif()
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -fPIC)
 
