@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 project(message_logger)
 
-find_package(ament_cmake_auto REQUIRED)
+
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_ros REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -48,7 +48,10 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -fPIC)
 
 
 # Install
-install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
+install(TARGETS ${PROJECT_NAME} 
+  EXPORT export_${PROJECT_NAME}
+  LIBRARY DESTINATION lib
+)
 install(DIRECTORY include/ DESTINATION include/
 )
 install(
@@ -59,6 +62,9 @@ install(
 ament_export_include_directories(include)
 ament_export_libraries(
   ${PROJECT_NAME}
+)
+ament_export_targets(
+  export_${PROJECT_NAME}
 )
 
 # Test

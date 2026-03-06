@@ -8,7 +8,7 @@
   <license>BSD</license>
   <author email="cgehring@anybotics.com">Christian Gehring</author>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
   <depend>rclcpp</depend>
